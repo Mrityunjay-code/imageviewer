@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import images from './data';
+
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	
+	const [filteredImages, setFilteredImages] = useState([]);
+
+	useEffect(
+		() => {
+			 setFilteredImages(images);
+		},
+		
+	);
+
+	return (
+		<div className="App">
+		
+			
+				<div className="container">
+					{filteredImages.map(image => (
+						<div key={image.id} className="image-card">
+							<a href={`/images/${image.imageName}`}>
+								<img className="image" src={`/images/${image.imageName}`} alt="" />
+							</a>
+						</div>
+					))}
+				</div>
+			
+		</div>
+	);
 }
+
+const TagButton = ({ name, handleSetTag, tagActive }) => {
+	return (
+		<button className={`tag ${tagActive ? 'active' : null}`} onClick={() => handleSetTag(name)}>
+			{name.toUpperCase()}
+		</button>
+	);
+};
 
 export default App;
